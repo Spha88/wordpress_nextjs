@@ -50,11 +50,20 @@ const Blog = ({ allPosts: { edges } }) => {
 export default Blog;
 
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
+//     const allPosts = await getAllPosts();
+//     return {
+//         props: {
+//             allPosts
+//         }
+//     };
+// }
+
+export async function getServerSideProps(context) {
     const allPosts = await getAllPosts();
     return {
         props: {
             allPosts
         }
-    };
+    }
 }

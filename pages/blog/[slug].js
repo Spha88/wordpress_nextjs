@@ -9,7 +9,7 @@ import { getAllPostsWithSlug, getPost } from '../../lib/api';
 import styles from '../../styles/Home.module.css';
 import blogStyles from '../../styles/Blog.module.css';
 
-export default function ({ postData }) {
+export default function Post({ postData }) {
     const router = useRouter();
 
     if (!router.isFallback && !postData?.slug) {
@@ -53,15 +53,25 @@ export default function ({ postData }) {
     )
 }
 
-export async function getStaticPaths() {
-    const allPosts = await getAllPostsWithSlug();
-    return {
-        paths: allPosts.edges.map(({ node }) => `/blog/${node.slug}`) || [],
-        fallback: false
-    }
-}
+// export async function getStaticPaths() {
+//     const allPosts = await getAllPostsWithSlug();
+//     return {
+//         paths: allPosts.edges.map(({ node }) => `/blog/${node.slug}`) || [],
+//         fallback: false
+//     }
+// }
 
-export async function getStaticProps({ params }) {
+// export async function getStaticProps({ params }) {
+//     const data = await getPost(params.slug);
+
+//     return {
+//         props: {
+//             postData: data.post
+//         }
+//     }
+// }
+
+export async function getServerSideProps({ params }) {
     const data = await getPost(params.slug);
 
     return {
